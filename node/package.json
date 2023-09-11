@@ -1,0 +1,16 @@
+{
+  "name": "LCDController",
+  "version": "1.0.0",
+  "description": "A controller for the serial interface of my LCD screen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^12.0.0",
+    "systeminformation": "^5.21.4"
+  }
+}
