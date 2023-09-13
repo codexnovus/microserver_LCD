@@ -31,6 +31,27 @@ const int escapeByte = 0xFE;
 const int rs = 12, en = 11, d4 = 3, d5 = 4, d6 = 5, d7 = 6;
 const int rows = 2;
 const int colums = 16;
+const byte uparrow[8] = {
+  B00000,
+  B00100,
+  B01110,
+  B10101,
+  B00100,
+  B00100,
+  B00000,
+  B00000
+};
+
+const byte downarrow[8] = {
+  B00000,
+  B00100,
+  B00100,
+  B10101,
+  B01110,
+  B00100,
+  B00000,
+  B00000
+};
 
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
@@ -44,12 +65,15 @@ void setup() {
   Serial.begin(baud);
 
   // give hint on how to send data to display
+  lcd.createChar(0, uparrow);
+  lcd.createChar(1, downarrow);
   lcd.clear();
   lcd.print("Inicializando");
   lcd.setCursor(0,1);
   lcd.print("pantalla");
   pinMode(A1, INPUT_PULLUP);
   pinMode(A2, INPUT_PULLUP);
+  
 }
 
 // for instruction escape logic
@@ -71,7 +95,7 @@ void loop()
     if((timeoutCounter>2000000) && (timeoutCounter%1000)==0)
     {
         // calculate time
-        int seconds = ((millis()/1000) - lastTimeReception); // overflow might happen!
+        uint32_t seconds = ((millis()/1000) - lastTimeReception); // overflow might happen!
         int minutes = seconds/60;
         int hours = minutes/60;
         seconds = seconds%60;
